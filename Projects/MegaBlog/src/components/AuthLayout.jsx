@@ -10,9 +10,12 @@ export default function Protected({children, authentication = true}) {
     const authStatus = useSelector(state => state.auth.status)
 
     useEffect(() => {
+        // 1. Checks if the authentication prop is true and the authStatus is not equal to true. If so, it redirects the user to the login page ("/login").
         if (authentication && authStatus !== authentication) {
             navigate("/login")
-        } else if (!authentication && authStatus !== authentication) {
+        } 
+        // 2. Checks if the authentication prop is false and the authStatus is not equal to false. If so, it redirects the user to the root page ("/").
+        else if (!authentication && authStatus !== authentication) {
             navigate("/")
         }
         setLoader(false)
