@@ -6,21 +6,21 @@ import { useSelector } from 'react-redux'
 import service from '../../appwrite/config'
 
 function PostForm({ post }) {
-    const { register, control, handleSubmit, watch, getValues, setValue } = useForm({
+    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
-            title: post.title || "",
-            slug: post.$id || "",
-            content: post.content || "",
-            status: post.status || "active"
+            title: post?.title || "",
+            slug: post?.$id || "",
+            content: post?.content || "",
+            status: post?.status || "active",
         },
-    })
+    });
 
     const navigate = useNavigate()
     const userData = useSelector((state) => state.auth.userData)
 
     const submit = async (data) => {
         if (post) {
-            const file = data.image[0] ? await service.uploadFile(image[0]) : null
+            const file = data.image[0] ? await service.uploadFile(data.image[0]) : null
             if (file) {
                 service.deleteFile(post.featuredImage)
             }

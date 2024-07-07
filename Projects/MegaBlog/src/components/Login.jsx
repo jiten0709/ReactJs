@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import authService from '../appwrite/auth'
@@ -16,12 +16,10 @@ function Login() {
     const login = async (data) => {
         setError("")
         try {
-            const session = authService.login(data)
+            const session = await authService.login(data)
             if (session) {
-                const userData = authService.getCurrentUser()
-                if (userData) {
-                    dispatch(authLogin(userData))
-                }
+                const userData = await authService.getCurrentUser()
+                if (userData) dispatch(authLogin(userData));
                 navigate("/")
             }
         } catch (error) {

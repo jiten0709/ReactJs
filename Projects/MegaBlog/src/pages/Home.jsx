@@ -8,7 +8,7 @@ function Home() {
     useEffect(() => {
         service.getPosts().then((posts) => {
             if (posts) {
-                setPosts(posts.documents) 
+                setPosts(posts.documents)
             }
         })
     }, [])
@@ -29,7 +29,7 @@ function Home() {
         )
     }
 
-  return (
+    return (
         <div className='w-full py-8'>
             <Container>
                 <div className='flex flex-wrap'>
