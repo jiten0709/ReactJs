@@ -12,11 +12,11 @@ export class AuthService {
         this.account = new Account(this.client);
     }
 
-    async createAccount({email, password, name}) {
+    async createAccount({ email, password, name }) {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                return this.login({email, password});
+                return this.login({ email, password });
             } else {
                 return userAccount;
             }
@@ -26,7 +26,7 @@ export class AuthService {
         }
     }
 
-    async login({email, password}) {
+    async login({ email, password }) {
         try {
             return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
@@ -39,15 +39,10 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            console.error("Appwrite service :: getCurrentUser :: error", error);
-            if (error) {
-                // Specific error handling for AppwriteException
-                if (error.message.includes("missing scope")) {
-                    console.error("The user does not have the required permissions.");
-                }
-            }
-            throw error;  // Re-throw the error if you want to handle it at a higher level
+            console.log("Appwrite serive :: getCurrentUser :: error", error);
         }
+
+        return null
     }
 
     async logout() {
@@ -58,14 +53,14 @@ export class AuthService {
         }
     }
 
-    async signInAccount(user) {
-        try {
-            const session = await this.account.createEmailSession(user.email, user.password);
-            return session;
-        } catch (error) {
-            console.error("Error signing in account:", error);
-        }
-    }
+    // async signInAccount(user) {
+    //     try {
+    //         const session = await this.account.createEmailPasswordSession(user.email, user.password);
+    //         return session;
+    //     } catch (error) {
+    //         console.error("Error signing in account:", error);
+    //     }
+    // }
 }
 
 const authService = new AuthService();

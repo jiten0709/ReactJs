@@ -48,7 +48,7 @@ function PostForm({ post }) {
         if (value && typeof value === "string")
             return value
                 .trim()
-                .toLocaleLowerCase()
+                .toLowerCase()
                 .replace(/[^a-zA-Z\d\s]+/g, "-")
                 .replace(/\s/g, "-");
 

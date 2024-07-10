@@ -3,14 +3,12 @@ import { Container, PostCard } from '../components'
 import service from '../appwrite/config'
 
 function AllPosts() {
-    console.log('AllPosts here')
     const [posts, setPosts] = useState([])
 
     useEffect(() => { }, [])
 
     service.getPosts([]).then((posts) => {
         if (posts) {
-            console.log('fetching posts: ',posts)
             setPosts(posts.documents)
         }
     })
